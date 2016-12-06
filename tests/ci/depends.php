@@ -100,6 +100,14 @@ class PhpExtensions {
 		static::_ini(['extension=mongo.so']);
 	}
 
+	protected static function _mongodb() {
+		if (static::_isHhvm()) {
+			throw new RuntimeException("`mongodb` cannot be used with HHVM.");
+		}
+		static::_pecl('mongodb');
+		static::_ini(['extension=mongodb.so']);
+	}
+
 	/**
 	 * Executes given command, reports and exits in case it fails.
 	 *
